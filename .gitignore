@@ -1,0 +1,12 @@
+# Local config overrides
+.env
+*.local
+
+# Internal AI-assisted development artifacts
+_bmad-output/
+
+# Local IDE/tooling config (environment-specific, not for version control)
+.claude/
+
+# Rust build artifacts
+/target/

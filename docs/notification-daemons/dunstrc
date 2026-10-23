@@ -1,0 +1,16 @@
+# pbwatch rule for dunst
+# Add this block to ~/.config/dunst/dunstrc
+# max_icon_size must be >= image_size in ~/.config/pbwatch/config.toml (default 200).
+
+[pbwatch]
+    appname = pbwatch
+    format = "%s\n%b"
+    icon_position = left
+    min_icon_size = 0
+    max_icon_size = 320
+
+# ── Recommended global settings ──────────────────────────────────────────────
+# [global]
+#     max_icon_size = 320
+#     # geometry = "0x0-20+48"   (dunst ≤ 1.8)
+#     # offset = "20x48"         (dunst ≥ 1.9, anchor = top_right)

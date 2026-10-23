@@ -1,0 +1,14 @@
+[Unit]
+Description=Pixel Buds monitor (pbwatch)
+After=dbus.socket
+
+[Service]
+# MAC addresses and options are read from ~/.config/pbwatch/config.toml
+# Run ./install.sh --mac AB:CD:EF:01:23:45 to set your address.
+ExecStart=/usr/local/bin/pbwatch
+Environment=RUST_LOG=info
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

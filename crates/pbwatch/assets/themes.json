@@ -1,0 +1,184 @@
+{
+  "themes": [
+    {
+      "name": "Solarized Dark",
+      "bg_color": "#002b36",
+      "text_color": "#839496",
+      "highlight_color": "#268bd2",
+      "ring_color": "#83949620",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Gruvbox Dark",
+      "bg_color": "#282828",
+      "text_color": "#ebdbb2",
+      "highlight_color": "#fabd2f",
+      "ring_color": "#ebdbb220",
+      "warn_color": "#ff7657",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Catppuccin Mocha",
+      "bg_color": "#1e1e2e",
+      "text_color": "#cdd6f4",
+      "highlight_color": "#89b4fa",
+      "ring_color": "#cdd6f420",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Rosé Pine",
+      "bg_color": "#191724",
+      "text_color": "#e0def4",
+      "highlight_color": "#eb6f92",
+      "ring_color": "#e0def420",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Everforest Dark",
+      "bg_color": "#2d353b",
+      "text_color": "#d3c6aa",
+      "highlight_color": "#a7c080",
+      "ring_color": "#d3c6aa20",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Nord",
+      "bg_color": "#2e3440",
+      "text_color": "#eceff4",
+      "highlight_color": "#88c0d0",
+      "ring_color": "#eceff420",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Dracula",
+      "bg_color": "#282a36",
+      "text_color": "#f8f8f2",
+      "highlight_color": "#ff79c6",
+      "ring_color": "#f8f8f220",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Tokyo Night",
+      "bg_color": "#1a1b26",
+      "text_color": "#c0caf5",
+      "highlight_color": "#bb9af7",
+      "ring_color": "#c0caf520",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Kanagawa",
+      "bg_color": "#1f1f28",
+      "text_color": "#dcd7ba",
+      "highlight_color": "#ffa066",
+      "ring_color": "#dcd7ba20",
+      "warn_color": "#ffd866",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "SynthWave ’84",
+      "bg_color": "#262335",
+      "text_color": "#ffffff",
+      "highlight_color": "#ff7edb",
+      "ring_color": "#ffffff20",
+      "warn_color": "#ffbd4a",
+      "critical_color": "#ff6b6b"
+    },
+    {
+      "name": "Solarized Light",
+      "bg_color": "#fdf6e3",
+      "text_color": "#586e75",
+      "highlight_color": "#268bd2",
+      "ring_color": "#586e7520",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "Gruvbox Light",
+      "bg_color": "#fbf1c7",
+      "text_color": "#3c3836",
+      "highlight_color": "#d79921",
+      "ring_color": "#3c383620",
+      "warn_color": "#b74f00",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "Catppuccin Latte",
+      "bg_color": "#eff1f5",
+      "text_color": "#4c4f69",
+      "highlight_color": "#1e66f5",
+      "ring_color": "#4c4f6920",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "Rosé Pine Dawn",
+      "bg_color": "#faf4ed",
+      "text_color": "#575279",
+      "highlight_color": "#56949f",
+      "ring_color": "#57527920",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "Everforest Light",
+      "bg_color": "#fdf6e3",
+      "text_color": "#5c6a72",
+      "highlight_color": "#8da101",
+      "ring_color": "#5c6a7220",
+      "warn_color": "#ad5700",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "Nord Light",
+      "bg_color": "#eceff4",
+      "text_color": "#2e3440",
+      "highlight_color": "#5e81ac",
+      "ring_color": "#2e344020",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "GitHub Light",
+      "bg_color": "#ffffff",
+      "text_color": "#1f2328",
+      "highlight_color": "#0969da",
+      "ring_color": "#1f232820",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "Ayu Light",
+      "bg_color": "#fcfcfc",
+      "text_color": "#5c6166",
+      "highlight_color": "#ff9940",
+      "ring_color": "#5c616620",
+      "warn_color": "#9f4d00",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "One Light",
+      "bg_color": "#fafafa",
+      "text_color": "#383a42",
+      "highlight_color": "#ca1243",
+      "ring_color": "#383a4220",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    },
+    {
+      "name": "PaperColor Light",
+      "bg_color": "#eeeeee",
+      "text_color": "#444444",
+      "highlight_color": "#005f87",
+      "ring_color": "#44444420",
+      "warn_color": "#995500",
+      "critical_color": "#b44a55"
+    }
+  ]
+}
