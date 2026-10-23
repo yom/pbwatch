@@ -1,0 +1,96 @@
+.TH PBWATCH 1 "2026-10-23" "pbwatch 1.0.0" "User Commands"
+.
+.SH NAME
+pbwatch \- battery and ANC monitor for Google Pixel Buds on Linux
+.
+.SH SYNOPSIS
+.B pbwatch
+[\fB\-\-mac\fR \fIADDRESS\fR]
+[\fB\-\-on\-update\fR \fICOMMAND\fR]
+[\fB\-\-on\-disconnect\fR \fICOMMAND\fR]
+[\fB\-\-heal\-audio\fR]
+[\fB\-\-no\-notify\fR]
+[\fB\-\-legacy\-state\-files\fR]
+[\fB\-\-debug\fR]
+[\fInotify\fR]
+.
+.SH DESCRIPTION
+\fBpbwatch\fR is a background daemon that connects to Google Pixel Buds over
+Bluetooth RFCOMM and sends a desktop notification whenever battery levels or
+ANC mode change.
+.PP
+Configuration is read from \fI~/.config/pbwatch/config.toml\fR on startup.
+Command-line options override the config file.
+.
+.SH SUBCOMMANDS
+.TP
+.B notify
+Send a desktop notification with the current Pixel Buds state, then exit.
+.
+.SH OPTIONS
+.TP
+\fB\-\-mac\fR \fIADDRESS\fR
+Bluetooth MAC address of the Pixel Buds to monitor
+(e.g.\& \fIAB:CD:EF:01:23:45\fR).
+May be repeated for multiple pairs.
+Overrides the \fBmacs\fR field in config.toml.
+Find addresses with \fBbluetootlctl devices\fR.
+.TP
+\fB\-\-on\-update\fR \fICOMMAND\fR
+Shell command to execute on battery, ANC, or placement changes.
+The command receives the current state as JSON on stdin.
+If omitted, pbwatch renders and sends a notification internally.
+.TP
+\fB\-\-on\-disconnect\fR \fICOMMAND\fR
+Shell command to execute when the earbuds disconnect.
+Receives the last known state as JSON on stdin.
+.TP
+.B \-\-heal\-audio
+On connect, switch the Bluetooth card to the A2DP (high-quality audio) profile
+and set it as the default audio output.
+Requires \fBwireplumber\fR and \fBpulseaudio-utils\fR.
+.TP
+.B \-\-no\-notify
+Disable desktop notifications and hooks.
+State files are still written (see \fBFILES\fR below).
+.TP
+.B \-\-legacy\-state\-files
+Write battery and ANC state as flat files for compatibility with older scripts.
+.TP
+.B \-\-debug
+Print raw RFCOMM frames to stderr.
+.TP
+.B \-\-version
+Print version information and exit.
+.TP
+.B \-\-help
+Print a summary of options and exit.
+.
+.SH FILES
+.TP
+.I ~/.config/pbwatch/config.toml
+User configuration file.
+Created automatically with sane defaults on first run.
+.TP
+.I /usr/share/pbwatch/themes.json
+System-wide colour theme definitions.
+Can be overridden by a user copy at
+.IR ~/.config/pbwatch/themes.json .
+.
+.SH ENVIRONMENT
+.TP
+.B RUST_LOG
+Controls log verbosity.
+Accepted values: \fBerror\fR, \fBwarn\fR, \fBinfo\fR (default), \fBdebug\fR, \fBtrace\fR.
+.TP
+.B XDG_CONFIG_HOME
+Overrides the base directory for configuration files.
+Defaults to \fI~/.config\fR.
+.
+.SH SEE ALSO
+.BR bluetoothctl (1),
+.BR systemctl (1),
+.BR notify-send (1)
+.
+.SH AUTHOR
+Guillaume Blairon <g@yom.be>
