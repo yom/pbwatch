@@ -1,0 +1,24 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        echo ""
+        echo "pbwatch installed. To complete setup:"
+        echo ""
+        echo "  1. Find your Pixel Buds Bluetooth address:"
+        echo "       bluetoothctl devices"
+        echo ""
+        echo "  2. Create your configuration file:"
+        echo "       mkdir -p ~/.config/pbwatch"
+        echo "       echo 'macs = [\"AB:CD:EF:01:23:45\"]' >> ~/.config/pbwatch/config.toml"
+        echo ""
+        echo "  3. Enable and start the background service:"
+        echo "       systemctl --user enable --now pbwatch"
+        echo ""
+        echo "  See /usr/share/doc/pbwatch/README.Debian for full documentation."
+        echo ""
+        ;;
+esac
+
+#DEBHELPER#

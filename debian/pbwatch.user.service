@@ -1,0 +1,12 @@
+[Unit]
+Description=Pixel Buds monitor (pbwatch)
+After=dbus.socket
+
+[Service]
+ExecStart=/usr/bin/pbwatch
+Environment=RUST_LOG=info
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,137 @@
+{
+  "themes": [
+    {
+      "name": "Solarized Dark",
+      "bg_color": "#002b36",
+      "text_color": "#839496",
+      "accent_color": "#268bd2",
+      "ring_color": "#83949620"
+    },
+    {
+      "name": "Dracula",
+      "bg_color": "#282a36",
+      "text_color": "#f8f8f2",
+      "accent_color": "#bd93f9",
+      "ring_color": "#f8f8f220"
+    },
+    {
+      "name": "Gruvbox Dark",
+      "bg_color": "#282828",
+      "text_color": "#ebdbb2",
+      "accent_color": "#fabd2f",
+      "ring_color": "#ebdbb220"
+    },
+    {
+      "name": "Nord",
+      "bg_color": "#2e3440",
+      "text_color": "#eceff4",
+      "accent_color": "#88c0d0",
+      "ring_color": "#eceff420"
+    },
+    {
+      "name": "Catppuccin Mocha",
+      "bg_color": "#1e1e2e",
+      "text_color": "#cdd6f4",
+      "accent_color": "#89b4fa",
+      "ring_color": "#cdd6f420"
+    },
+    {
+      "name": "Tokyo Night",
+      "bg_color": "#1a1b26",
+      "text_color": "#c0caf5",
+      "accent_color": "#7aa2f7",
+      "ring_color": "#c0caf520"
+    },
+    {
+      "name": "One Dark",
+      "bg_color": "#282c34",
+      "text_color": "#abb2bf",
+      "accent_color": "#61afef",
+      "ring_color": "#abb2bf20"
+    },
+    {
+      "name": "Monokai",
+      "bg_color": "#272822",
+      "text_color": "#f8f8f2",
+      "accent_color": "#a6e22e",
+      "ring_color": "#f8f8f220"
+    },
+    {
+      "name": "Everforest Dark",
+      "bg_color": "#2d353b",
+      "text_color": "#d3c6aa",
+      "accent_color": "#a7c080",
+      "ring_color": "#d3c6aa20"
+    },
+    {
+      "name": "Solarized Light",
+      "bg_color": "#fdf6e3",
+      "text_color": "#586e75",
+      "accent_color": "#268bd2",
+      "ring_color": "#586e7520"
+    },
+    {
+      "name": "Gruvbox Light",
+      "bg_color": "#fbf1c7",
+      "text_color": "#3c3836",
+      "accent_color": "#d79921",
+      "ring_color": "#3c383620"
+    },
+    {
+      "name": "Catppuccin Latte",
+      "bg_color": "#eff1f5",
+      "text_color": "#4c4f69",
+      "accent_color": "#1e66f5",
+      "ring_color": "#4c4f6920"
+    },
+    {
+      "name": "GitHub Light",
+      "bg_color": "#ffffff",
+      "text_color": "#1f2328",
+      "accent_color": "#0969da",
+      "ring_color": "#1f232820"
+    },
+    {
+      "name": "One Light",
+      "bg_color": "#fafafa",
+      "text_color": "#383a42",
+      "accent_color": "#4078f2",
+      "ring_color": "#383a4220"
+    },
+    {
+      "name": "Rosé Pine Dawn",
+      "bg_color": "#faf4ed",
+      "text_color": "#575279",
+      "accent_color": "#286983",
+      "ring_color": "#57527920"
+    },
+    {
+      "name": "Everforest Light",
+      "bg_color": "#fdf6e3",
+      "text_color": "#5c6a72",
+      "accent_color": "#8da101",
+      "ring_color": "#5c6a7220"
+    },
+    {
+      "name": "Ayu Light",
+      "bg_color": "#fcfcfc",
+      "text_color": "#5c6166",
+      "accent_color": "#ff9940",
+      "ring_color": "#5c616620"
+    },
+    {
+      "name": "PaperColor Light",
+      "bg_color": "#eeeeee",
+      "text_color": "#444444",
+      "accent_color": "#005f87",
+      "ring_color": "#44444420"
+    },
+    {
+      "name": "Tomorrow",
+      "bg_color": "#ffffff",
+      "text_color": "#4d4d4c",
+      "accent_color": "#4271ae",
+      "ring_color": "#4d4d4c20"
+    }
+  ]
+}

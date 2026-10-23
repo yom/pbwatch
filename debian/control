@@ -1,0 +1,22 @@
+Source: pbwatch
+Section: net
+Priority: optional
+Maintainer: Guillaume Blairon <g@yom.be>
+Build-Depends: debhelper-compat (= 13), cargo, libcairo2-dev
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Homepage: https://github.com/yom/pbwatch
+
+Package: pbwatch
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, bluez
+Description: Battery and ANC monitor for Google Pixel Buds on Linux
+ pbwatch runs quietly in the background and displays a desktop notification
+ whenever your Pixel Buds battery level changes or you switch ANC mode.
+ .
+ Supports Pixel Buds Pro 2 (2024), Pixel Buds Pro (2022), and
+ Pixel Buds A-Series (2021). Configuration lives in
+ ~/.config/pbwatch/config.toml.
+ .
+ Note: building requires Rust 1.85 or later (edition 2024). Install a
+ recent toolchain via rustup if the system rustc is too old.

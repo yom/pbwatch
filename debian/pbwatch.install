@@ -1,0 +1,2 @@
+target/release/pbwatch usr/bin
+crates/pbwatch/assets/themes.json usr/share/pbwatch

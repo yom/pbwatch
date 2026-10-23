@@ -1,0 +1,7 @@
+f125f3bb1dd75551b95b7b8a73f90df4  usr/bin/pbwatch
+102fc0d5f663d410891b226b9e1a6952  usr/lib/systemd/user/pbwatch.service
+19e690116f4d20e03fd490a8323d108c  usr/share/doc/pbwatch/README.Debian
+b0f855f379d237007564a21ea30eadd3  usr/share/doc/pbwatch/changelog.gz
+e0cc16601cd79e7cab852de0ddecd971  usr/share/doc/pbwatch/copyright
+d8b5ad9c6b9ec8709aac6cab6bbca62f  usr/share/doc/pbwatch/examples/config.toml
+0c8874ff2487e0ad6a489fce320ecbdb  usr/share/pbwatch/themes.json
