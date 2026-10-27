@@ -23,12 +23,16 @@ pub fn spawn(cmd: &[String], state: &BudsState, state_path: &Path) {
         return;
     }
 
-    // Rate-limit to MIN_INTERVAL per device to prevent a misbehaving peer from
-    // exhausting the process table through rapid frame changes.
-    let mac_key = state.mac.clone().unwrap_or_default();
-    if !can_spawn(&mac_key) {
-        log::debug!("hook: rate-limited for {mac_key}, skipping");
-        return;
+    // Rate-limit Update events only — Connect and Disconnect are infrequent
+    // state transitions that must never be dropped (e.g. the disconnect hook
+    // may clean up external state). Only Update (battery/ANC changes) can be
+    // triggered rapidly by a misbehaving peer.
+    if state.event == pbcommon::Event::Update {
+        let mac_key = state.mac.clone().unwrap_or_default();
+        if !can_spawn(&mac_key) {
+            log::debug!("hook: rate-limited update for {mac_key}, skipping");
+            return;
+        }
     }
 
     let json = match serde_json::to_vec(state) {
