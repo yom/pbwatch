@@ -1,5 +1,5 @@
 use std::sync::OnceLock;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 use tokio::sync::Mutex;
 
@@ -36,12 +36,21 @@ async fn heal(mac: &str) {
     }
 
     if !sink_found {
-        log::warn!("heal_audio: BT sink not found after 7.5s — restarting WirePlumber");
-        let _ = tokio::process::Command::new("systemctl")
-            .args(["--user", "restart", "wireplumber"])
-            .output()
-            .await;
-        tokio::time::sleep(Duration::from_secs(2)).await;
+        // Rate-limit restarts to at most once every 5 minutes to prevent a
+        // misbehaving or spoofed peer from hammering WirePlumber on reconnect.
+        let mut last = wp_restart_lock().lock().await;
+        let cooldown = Duration::from_secs(300);
+        if last.map_or(true, |t: Instant| t.elapsed() >= cooldown) {
+            log::warn!("heal_audio: BT sink not found after 7.5s — restarting WirePlumber");
+            let _ = tokio::process::Command::new("systemctl")
+                .args(["--user", "restart", "wireplumber"])
+                .output()
+                .await;
+            *last = Some(Instant::now());
+            tokio::time::sleep(Duration::from_secs(2)).await;
+        } else {
+            log::warn!("heal_audio: BT sink not found; skipping WirePlumber restart (restarted recently)");
+        }
     }
 
     let sinks = pactl(&["list", "sinks", "short"]).await;
@@ -115,6 +124,11 @@ async fn pactl(args: &[&str]) -> String {
 fn heal_lock() -> &'static Mutex<()> {
     static LOCK: OnceLock<Mutex<()>> = OnceLock::new();
     LOCK.get_or_init(|| Mutex::new(()))
+}
+
+fn wp_restart_lock() -> &'static Mutex<Option<Instant>> {
+    static LOCK: OnceLock<Mutex<Option<Instant>>> = OnceLock::new();
+    LOCK.get_or_init(|| Mutex::new(None))
 }
 
 // ── Tests ─────────────────────────────────────────────────────────────────────

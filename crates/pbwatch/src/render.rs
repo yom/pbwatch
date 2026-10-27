@@ -245,6 +245,10 @@ fn model_sprite_key(state: &BudsState, cfg: &Config) -> String {
 /// Parses `#RRGGBB` or `#RRGGBBAA` into `[r, g, b, a]` (0..1 range).
 pub fn hex_to_rgba(h: &str) -> [f64; 4] {
     let h = h.trim_start_matches('#');
+    // Guard against multi-byte UTF-8: byte slicing is only safe on ASCII.
+    if !h.is_ascii() {
+        return [0.0, 0.0, 0.0, 1.0];
+    }
     let parse = |s: &str| u8::from_str_radix(s, 16).unwrap_or(0) as f64 / 255.0;
     if h.len() == 8 {
         [parse(&h[0..2]), parse(&h[2..4]), parse(&h[4..6]), parse(&h[6..8])]

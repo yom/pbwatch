@@ -1,9 +1,14 @@
+use std::collections::HashMap;
 use std::path::Path;
 use std::process::Stdio;
+use std::sync::{Mutex, OnceLock};
+use std::time::{Duration, Instant};
 
 use pbcommon::BudsState;
 use tokio::io::AsyncWriteExt;
 use tokio::process::Command;
+
+const MIN_INTERVAL: Duration = Duration::from_millis(500);
 
 /// Spawns a subprocess, writes the JSON state to its stdin, and reaps it
 /// asynchronously. Fire-and-forget: failures are logged but never propagate
@@ -15,6 +20,14 @@ use tokio::process::Command;
 /// - `PBWATCH_STATE_FILE` — path to the state file (e.g. `state-AB_CD_EF_01_23_45.json`)
 pub fn spawn(cmd: &[String], state: &BudsState, state_path: &Path) {
     if cmd.is_empty() {
+        return;
+    }
+
+    // Rate-limit to MIN_INTERVAL per device to prevent a misbehaving peer from
+    // exhausting the process table through rapid frame changes.
+    let mac_key = state.mac.clone().unwrap_or_default();
+    if !can_spawn(&mac_key) {
+        log::debug!("hook: rate-limited for {mac_key}, skipping");
         return;
     }
 
@@ -66,4 +79,18 @@ pub fn spawn(cmd: &[String], state: &BudsState, state_path: &Path) {
             _ => {}
         }
     });
+}
+
+fn can_spawn(mac: &str) -> bool {
+    static LAST: OnceLock<Mutex<HashMap<String, Instant>>> = OnceLock::new();
+    let mut map = LAST.get_or_init(|| Mutex::new(HashMap::new()))
+        .lock()
+        .unwrap_or_else(|e| e.into_inner());
+    let now = Instant::now();
+    if map.get(mac).map_or(true, |t| now.duration_since(*t) >= MIN_INTERVAL) {
+        map.insert(mac.to_string(), now);
+        true
+    } else {
+        false
+    }
 }

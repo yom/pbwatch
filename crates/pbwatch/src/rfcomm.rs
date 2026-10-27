@@ -2,7 +2,7 @@ use std::io;
 use std::time::Duration;
 
 use anyhow::Context;
-use bluer::rfcomm::{SocketAddr, Stream};
+use bluer::rfcomm::{Security, SecurityLevel, Socket, SocketAddr, Stream};
 use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use tokio::time::timeout;
 
@@ -61,9 +61,15 @@ pub fn parse_mac(s: &str) -> anyhow::Result<bluer::Address> {
 }
 
 /// Opens an RFCOMM connection on channel 2 with a 10s timeout.
+///
+/// Requires BT_SECURITY_MEDIUM so the kernel rejects connections from
+/// devices that don't have a stored link-key (i.e. aren't bonded).
 pub async fn connect(addr: bluer::Address) -> Result<Stream, ConnectError> {
+    let socket = Socket::new().map_err(ConnectError::Io)?;
+    socket.set_security(Security { level: SecurityLevel::Medium, key_size: 0 })
+        .map_err(ConnectError::Io)?;
     let sa = SocketAddr::new(addr, 2);
-    timeout(CONNECT_TIMEOUT, Stream::connect(sa))
+    timeout(CONNECT_TIMEOUT, socket.connect(sa))
         .await
         .map_err(|_| ConnectError::Timeout)?
         .map_err(ConnectError::Io)

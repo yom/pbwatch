@@ -176,9 +176,7 @@ impl Config {
             self.macs.push(std::mem::take(&mut self.device_mac));
         }
         self.opacity = self.opacity.clamp(0.0, 1.0);
-        if self.image_size < 100 {
-            self.image_size = 100;
-        }
+        self.image_size = self.image_size.clamp(100, 1024);
         if self.battery_warn > 100 {
             self.battery_warn = 100;
         }

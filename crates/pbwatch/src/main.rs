@@ -103,8 +103,16 @@ async fn main() -> anyhow::Result<()> {
     }
 
     let heal_audio    = cli.heal_audio || cfg.heal_audio;
-    let on_update     = cli.on_update.as_deref().and_then(shlex::split).unwrap_or_default();
-    let on_disconnect = cli.on_disconnect.as_deref().and_then(shlex::split).unwrap_or_default();
+    let on_update: Vec<String> = match cli.on_update.as_deref().map(shlex::split) {
+        None            => vec![],
+        Some(Some(v))   => v,
+        Some(None)      => anyhow::bail!("--on-update: invalid shell quoting"),
+    };
+    let on_disconnect: Vec<String> = match cli.on_disconnect.as_deref().map(shlex::split) {
+        None            => vec![],
+        Some(Some(v))   => v,
+        Some(None)      => anyhow::bail!("--on-disconnect: invalid shell quoting"),
+    };
 
     // Cairo surfaces are !Send, so we use spawn_local (same thread, no Send bound).
     let local = tokio::task::LocalSet::new();
@@ -411,9 +419,12 @@ async fn fire_notify(
         render::render(buds, &cfg)
     };
     // Derive a stable per-device key from the MAC (colons → underscores).
+    // Validate the MAC from the state object through bluer's Address parser
+    // to prevent path traversal if the state file has been tampered with.
     let device_key = buds.mac.as_deref()
-        .unwrap_or("default")
-        .replace(':', "_");
+        .and_then(|m| m.parse::<bluer::Address>().ok())
+        .map(|a| a.to_string().replace(':', "_"))
+        .unwrap_or_else(|| "default".to_string());
     match out {
         Ok(ref mut o) => {
             let summary = if cfg.show_text { notification_summary(buds, &cfg, disc) } else { String::new() };
@@ -429,9 +440,29 @@ async fn fire_notify(
 }
 
 fn notification_summary(buds: &BudsState, cfg: &config::Config, disc: bool) -> String {
-    let name = if !cfg.device_label.is_empty() { &cfg.device_label }
-               else { buds.device_name.as_deref().unwrap_or("Pixel Buds") };
-    if disc { format!("{name} disconnected") } else { name.to_string() }
+    let raw = if !cfg.device_label.is_empty() { cfg.device_label.as_str() }
+              else { buds.device_name.as_deref().unwrap_or("Pixel Buds") };
+    let name = escape_pango(raw);
+    if disc { format!("{name} disconnected") } else { name }
+}
+
+/// Escapes Pango markup special characters and strips control chars.
+/// Some notification daemons (dunst with markup=full) interpret the summary
+/// as Pango markup; a device name containing `<` or `&` would corrupt it.
+fn escape_pango(s: &str) -> String {
+    let mut out = String::with_capacity(s.len());
+    for c in s.chars().take(64) {
+        match c {
+            '&'  => out.push_str("&amp;"),
+            '<'  => out.push_str("&lt;"),
+            '>'  => out.push_str("&gt;"),
+            '\'' => out.push_str("&#39;"),
+            '"'  => out.push_str("&quot;"),
+            c if c.is_control() => {}
+            c    => out.push(c),
+        }
+    }
+    out
 }
 
 fn notification_body(buds: &BudsState, disc: bool) -> String {
